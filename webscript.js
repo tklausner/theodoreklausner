@@ -2,49 +2,29 @@ var choices = ["box purple", "box orange", "box pink", "box blue"]
 var headers = ["Code", "Education", "Work"];
 var content = ["Java", "Python",
               "Numpy", "Redux", "React Native", "matplotlib", "Pandas",
-              "Scipy", "Node.js", "MongoDB", "Adobe XD"];
+              "Scipy", "Node.js", "MongoDB", "Adobe XD"]
 var base = 0x000;
 
+
 function grow() {
-  const div = document.getElementById(this.id);
-  div.style.height = "100px";
-}
-function shrink() {
-  const div = document.getElementById(this.id);
-  div.style.height = "30px";
-}
+   const div = document.getElementById(this.id);
+   div.style.height = "100px";
+ }
+ function shrink() {
+   const div = document.getElementById(this.id);
+   div.style.height = "30px";
+ }
+
 function expandBox() {
   const div = document.getElementById(this.id);
   switch(this.className) {
-    case "box purple":
-    case "box orange":
-    case "box pink":
+    case "box purple": case "box orange": case "box pink":
       div.style.flex = "1 2 80px";
       div.style.backgroundColor = "rgba(250,250,250, .9)";
       break;
-    case "box link res":
-      div.style.flex = "1 2 90px";
-      div.style.backgroundColor = "rgba(240,250,240, .9)";
-      div.style.cursor = "pointer";
-      break;
-    case "box link git":
-      div.style.flex = "1 2 80px";
-      div.style.backgroundColor = "rgba(240,250,250, .9)";
-      div.style.cursor = "pointer";
-      break;
-    case "box link email":
-      div.style.flex = "1 2 75px";
-      div.style.backgroundColor = "rgba(250,250,240, .9)";
-      div.style.cursor = "pointer";
-      break;
-    case "box link ewh":
-      div.style.flex = "1 2 150px";
-      div.style.backgroundColor = "rgba(240,240,250, .9)";
-      div.style.cursor = "pointer";
-      break;
-    case "box link lin":
+    case "box link":
       div.style.flex = "1 2 100px";
-      div.style.backgroundColor = "rgba(250,240,240, .9)";
+      div.style.backgroundColor = "rgba(240,250,240, .9)";
       div.style.cursor = "pointer";
       break;
     default:
@@ -56,30 +36,8 @@ function expandBox() {
 
 function resetBox() {
   const div = document.getElementById(this.id);
-  switch(this.className) {
-    case "box purple": case "box orange": case "box pink":
-      div.style.flex = "1 2 75px";
-      break;
-    case "box link res":
-      div.style.flex = "1 2 60px";
-      break;
-    case "box link git":
-      div.style.flex = "1 2 60px";
-      break;
-    case "box link email":
-      div.style.flex = "1 2 50px";
-      break;
-    case "box link ewh":
-      div.style.flex = "1 2 130px";
-      break;
-    case "box link lin":
-      div.style.flex = "1 2 75px";
-      break;
-    default:
-      div.style.flex = "1 2 75px";
-      break;
-  }
   div.style.backgroundColor = "rgba(255,255,255, 1)";
+  div.style.flex = "2 2 75px";
 }
 
 function openResume() {
@@ -113,42 +71,37 @@ function newBox(cl) {
 }
 
 function resume() {
-  const newDiv = newBox("box link res");
+  const newDiv = newBox("box link");
   newDiv.appendChild(newHeader("Resume"));
   newDiv.onclick = openResume;
-  newDiv.style.flex = "1 1 60px";
   return newDiv;
 }
 
 function github() {
-  const newDiv = newBox("box link git");
+  const newDiv = newBox("box link");
   newDiv.appendChild(newHeader("Github"));
   newDiv.onclick = openGithub;
-  newDiv.style.flex = "1 1 60px";
   return newDiv;
 }
 
 function email() {
-  const newDiv = newBox("box link email");
+  const newDiv = newBox("box link");
   newDiv.appendChild(newHeader("Email"));
   newDiv.onclick = openEmail;
-  newDiv.style.flex = "1 1 50px";
   return newDiv;
 }
 
 function ewh() {
-  const newDiv = newBox("box link ewh");
-  newDiv.appendChild(newHeader("Project Team"));
+  const newDiv = newBox("box link");
+  newDiv.appendChild(newHeader("EWH"));
   newDiv.onclick = openEWH;
-  newDiv.style.flex = "1 1 130px";
   return newDiv;
 }
 
 function linkedin() {
-  const newDiv = newBox("box link lin");
+  const newDiv = newBox("box link");
   newDiv.appendChild(newHeader("LinkedIn"));
   newDiv.onclick = openLinkedIn;
-  newDiv.style.flex = "1 1 75px";
   return newDiv;
 }
 var links = [github(), resume(), email(), ewh(), linkedin()];
@@ -157,8 +110,8 @@ function genBoxes() {
   const grid = document.getElementById("grid");
   const name = document.getElementById("name");
   var contentAdded = 0;
+
   var height = Math.floor(document.body.clientHeight / 4);
-  console.log(height);
 
   for(var i = 0; i < height; i++) {
     var r = Math.floor(Math.random() * 4);
@@ -169,6 +122,7 @@ function genBoxes() {
       contentAdded++;
     }
   }
+
   for(var i = 0; i < height; i++) {
     var r = Math.floor(Math.random() * 4);
     const newDiv = newBox(choices[r])
@@ -188,13 +142,12 @@ function newHeader(content) {
 
 function drawLines() {
   const grid = document.getElementById("lines");
-  console.log()
   var lines = document.body.clientWidth / 60;
   for(var i = 0; i < lines; i++) {
     var r = Math.floor(Math.random() * 4);
     const newDiv = document.createElement("div");
     newDiv.setAttribute('class', choices[r]);
-    newDiv.setAttribute('id', i);
+    newDiv.setAttribute('id', base++);
     newDiv.onmouseover = grow;
     newDiv.onmouseleave = shrink;
     grid.appendChild(newDiv);
