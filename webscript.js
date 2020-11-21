@@ -2,17 +2,13 @@ var choices = ["box purple", "box orange", "box pink", "box blue"]
 var headers = ["Code", "Education", "Work"];
 var content = ["Java", "Python",
               "Numpy", "Redux", "React Native", "matplotlib", "Pandas",
-              "Scipy", "Node.js", "MongoDB", "Adobe XD"]
+              "Scipy", "Node.js", "MongoDB", "Adobe XD"];
+
 var base = 0x000;
 
-
-function grow() {
+function changeLineHeight(height) {
    const div = document.getElementById(this.id);
-   div.style.height = "100px";
- }
- function shrink() {
-   const div = document.getElementById(this.id);
-   div.style.height = "30px";
+   div.style.height = height;
  }
 
 function expandBox() {
@@ -40,24 +36,8 @@ function resetBox() {
   div.style.flex = "2 2 75px";
 }
 
-function openResume() {
-  window.location.href = "Resume.pdf";
-}
-
-function openGithub() {
-  window.location.href = "https://github.com/tklausner";
-}
-
-function openEmail() {
-  window.location.href = "mailto:tjk223@cornell.edu?subject=&body=";
-}
-
-function openLinkedIn() {
-  window.location.href = "https://www.linkedin.com/in/theodoreklausner/";
-}
-
-function openEWH() {
-  window.location.href = "https://ewh.engineering.cornell.edu";
+function open(url) {
+  window.location.href = url;
 }
 
 function newBox(cl) {
@@ -70,41 +50,20 @@ function newBox(cl) {
   return newDiv;
 }
 
-function resume() {
+function link(text, url) {
   const newDiv = newBox("box link");
-  newDiv.appendChild(newHeader("Resume"));
-  newDiv.onclick = openResume;
+  newDiv.appendChild(newHeader(text));
+  newDiv.onclick = () => { open(url) };
   return newDiv;
 }
 
-function github() {
-  const newDiv = newBox("box link");
-  newDiv.appendChild(newHeader("Github"));
-  newDiv.onclick = openGithub;
-  return newDiv;
-}
-
-function email() {
-  const newDiv = newBox("box link");
-  newDiv.appendChild(newHeader("Email"));
-  newDiv.onclick = openEmail;
-  return newDiv;
-}
-
-function ewh() {
-  const newDiv = newBox("box link");
-  newDiv.appendChild(newHeader("EWH"));
-  newDiv.onclick = openEWH;
-  return newDiv;
-}
-
-function linkedin() {
-  const newDiv = newBox("box link");
-  newDiv.appendChild(newHeader("LinkedIn"));
-  newDiv.onclick = openLinkedIn;
-  return newDiv;
-}
-var links = [github(), resume(), email(), ewh(), linkedin()];
+var links = [
+ link("Resume", "Resume.pdf"),
+ link("Github", "https://github.com/tklausner"),
+ link("Email","mailto:tjk223@cornell.edu?subject=&body="),
+ link("EWH", "https://ewh.engineering.cornell.edu"),
+ link("LinkedIn", "https://www.linkedin.com/in/theodoreklausner/"),
+];
 
 function genBoxes() {
   const grid = document.getElementById("grid");
@@ -148,8 +107,8 @@ function drawLines() {
     const newDiv = document.createElement("div");
     newDiv.setAttribute('class', choices[r]);
     newDiv.setAttribute('id', base++);
-    newDiv.onmouseover = grow;
-    newDiv.onmouseleave = shrink;
+    newDiv.onmouseover = () => { changeLineHeight("100px") };
+    newDiv.onmouseleave = () => { changeLineHeight("30px") };
     grid.appendChild(newDiv);
   }
 }
