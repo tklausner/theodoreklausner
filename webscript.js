@@ -4,6 +4,17 @@ var content = ["Java", "Python",
               "Numpy", "Redux", "React Native", "matplotlib", "Pandas",
               "Scipy", "Node.js", "MongoDB", "Adobe XD"]
 var base = 0x000;
+
+
+function grow() {
+   const div = document.getElementById(this.id);
+   div.style.height = "100px";
+ }
+ function shrink() {
+   const div = document.getElementById(this.id);
+   div.style.height = "30px";
+ }
+
 function expandBox() {
   const div = document.getElementById(this.id);
   switch(this.className) {
@@ -25,8 +36,8 @@ function expandBox() {
 
 function resetBox() {
   const div = document.getElementById(this.id);
-  div.style.flex = "2 2 75px";
   div.style.backgroundColor = "rgba(255,255,255, 1)";
+  div.style.flex = "2 2 75px";
 }
 
 function openResume() {
@@ -100,7 +111,9 @@ function genBoxes() {
   const name = document.getElementById("name");
   var contentAdded = 0;
 
-  for(var i = 0; i < 28; i++) {
+  var height = Math.floor(document.body.clientHeight / 4);
+
+  for(var i = 0; i < height; i++) {
     var r = Math.floor(Math.random() * 4);
     const newDiv = newBox(choices[r]);
     grid.insertBefore(newDiv, name);
@@ -110,7 +123,7 @@ function genBoxes() {
     }
   }
 
-  for(var i = 0; i < 20; i++) {
+  for(var i = 0; i < height; i++) {
     var r = Math.floor(Math.random() * 4);
     const newDiv = newBox(choices[r])
     grid.appendChild(newDiv);
@@ -129,12 +142,14 @@ function newHeader(content) {
 
 function drawLines() {
   const grid = document.getElementById("lines");
-  console.log()
   var lines = document.body.clientWidth / 60;
   for(var i = 0; i < lines; i++) {
     var r = Math.floor(Math.random() * 4);
     const newDiv = document.createElement("div");
     newDiv.setAttribute('class', choices[r]);
+    newDiv.setAttribute('id', base++);
+    newDiv.onmouseover = grow;
+    newDiv.onmouseleave = shrink;
     grid.appendChild(newDiv);
   }
 }
