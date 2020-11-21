@@ -1,4 +1,4 @@
 ## Personal Website
 
-# Coded by Theodore Klausner
-# Javascript, html, css
+### Coded by Theodore Klausner
+### Languages: Javascript, HTML, CSS
