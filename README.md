@@ -1,6 +1,6 @@
 ## Personal Website
 
 ### Author: Theodore Klausner
-### Languages: Javascript, HTML, CSS
+### Languages: html
 
 ### Deployed at: http://theodoreklausner.com
